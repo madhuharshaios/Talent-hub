@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - LMS</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('assets/login-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: #9d853d;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        background-image: url('assets/card-bg.png');
+        background-size: cover;
+        background-position: center;
+        background-color: rgb(200, 231, 237);
+        /* Fallback */
+        padding: 40px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-md);
+    }
+
+    .brand-logo {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .brand-logo svg {
+        width: 60px;
+        height: 60px;
+        color: var(--primary-color);
+    }
+
+    .brand-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-top: 10px;
+    }
+
+    .login-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .signup-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: var(--text-light);
+    }
+
+    .signup-link a {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .btn-social {
+        width: 100%;
+        background-color: white;
+        border: 1px solid #dcdcdc;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        font-weight: 500;
+    }
+
+    .btn-social:hover {
+        background-color: #f8f9fa;
+        border-color: #c4c4c4;
+    }
+
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 24px 0;
+        color: var(--text-light);
+        font-size: 0.85rem;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .divider:not(:empty)::before {
+        margin-right: 15px;
+    }
+
+    .divider:not(:empty)::after {
+        margin-left: 15px;
+    }
+</style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="brand-logo" style="display: flex; justify-content: center; align-items: center;">
+                <img src="assets/dr-aruna-logo.png" alt="Dr. Aruna University Logo"
+                    style="max-height: 100px; margin-bottom: 20px; width: auto; object-fit: contain;">
+            </div>
+
+            <form id="signupForm">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="fullname" class="form-control" placeholder="Dr.Aruna" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="student@example.com"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <div class="flex-between"
+                    style="margin-bottom: 20px; align-items: flex-end; justify-content: flex-end;">
+                    <a href="forgotpassword.html" class="forgot-password"
+                        style="font-size: 0.9rem; color: var(--text-light);">Forgot
+                        password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary login-btn" style="width: 100%; margin-top: 10px;">Create
+                    Account</button>
+            </form>
+
+            <div class="signup-link">
+                Already have an account? <a href="index.html">Log In</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments - Mini LMS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .table-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #fcfcfc;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+        }
+
+        .status-submitted {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-graded {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Mobile Overlay -->
+        <div class="sidebar-overlay"></div>
+
+        <!-- Sidebar (Reused) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" style="display: block; text-decoration: none;">
+                <img src="assets/dr-aruna-logo.png" alt="Dr. Aruna University Logo" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+            </a>
+            </div>
+
+            
+                        <div class="custom-course-menu">
+                                <details class="course-menu-dropdown" open>
+                    <summary class="menu-title flex-between" style="cursor: pointer; list-style: none;">
+                        Custom Course Menu
+                        <svg class="dropdown-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                <ul class="course-list">
+                        <li>
+                            <a href="course-details.html" class="course-link" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px;">
+                                <img src="assets/web-dev-icon.png" alt="Web Development" style="width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                Introduction to Web Development
+                            </a>
+                        </li>
+                        <li>
+                            <a href="course-details.html" class="course-link" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px;">
+                                <img src="assets/js-icon.png" alt="JavaScript" style="width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                Advanced JavaScript Concepts
+                            </a>
+                        </li>
+                        <li>
+                            <a href="course-details.html" class="course-link" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px;">
+                                <img src="assets/sql-icon.png" alt="Database Design" style="width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                Database Design & SQL
+                            </a>
+                        </li>
+                        <li>
+                            <a href="course-details.html" class="course-link" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px;">
+                                <img src="assets/ux-icon.png" alt="UI/UX Principles" style="width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                UI/UX Principles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="course-details.html" class="course-link" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px;">
+                                <img src="assets/react-icon.png" alt="React Framework" style="width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                React Framework Basics
+                            </a>
+                        </li>
+                    </ul>
+            </details>
+            </div>
+
+<div class="sidebar-footer">
+                <a href="index.html" class="sidebar-nav" style="padding: 0;">
+                    <div
+                        style="display: flex; align-items: center; gap: 16px; padding: 12px 16px; color: var(--danger-color); font-weight: 500;">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 20px; height: 20px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Reused -->
+                        <header class="top-header">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <!-- Mobile Toggle -->
+                    <button class="icon-btn" id="sidebarToggle" style="display: none;">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 24px; height: 24px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+
+                    <div class="search-bar">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 18px; color: #999;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input type="text" placeholder="Search courses, students...">
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <!-- Edit Mode Toggle -->
+                    <div class="edit-mode-toggle" title="Toggle Edit Mode (Lecturers Only)">
+                        <span class="edit-mode-label">Edit Mode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="editModeToggle">
+                            <span class="toggle-slider round"></span>
+                        </label>
+                    </div>
+
+                    <button class="icon-btn">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 24px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span class="badge">3</span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <span>Notifications</span>
+                            <a href="#" id="markAllReadBtn" style="font-size: 0.8rem; color: var(--primary-color);">Mark
+                                all read</a>
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item unread">
+                                <div
+                                    style="width: 8px; height: 8px; border-radius: 50%; background: var(--primary-color); margin-top: 6px;">
+                                </div>
+                                <div class="notification-content">
+                                    <h4>Assignment Due Soon</h4>
+                                    <p>Database Schema Design is due tomorrow at 11:59 PM.</p>
+                                    <span style="font-size: 0.75rem; color: #aaa;">1 hour ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div
+                                    style="width: 8px; height: 8px; border-radius: 50%; background: var(--primary-color); margin-top: 6px;">
+                                </div>
+                                <div class="notification-content">
+                                    <h4>New Course Content</h4>
+                                    <p>New video added to "Advanced JavaScript" course.</p>
+                                    <span style="font-size: 0.75rem; color: #aaa;">5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div
+                                    style="width: 8px; height: 8px; border-radius: 50%; background: transparent; margin-top: 6px;">
+                                </div>
+                                <div class="notification-content">
+                                    <h4>Welcome to Mini LMS</h4>
+                                    <p>Get started by exploring your dashboard.</p>
+                                    <span style="font-size: 0.75rem; color: #aaa;">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Icon -->
+                    <button class="icon-btn" id="chatToggleBtn" style="margin-right: 5px;" title="Messages">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 24px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </button>
+
+                    <!-- Profile Dropdown -->
+                    <div class="profile-menu-container">
+                        <button class="profile-toggle" id="profileToggleBtn">
+                            <div class="profile-avatar">C</div>
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 16px; margin-left: 4px; color: var(--text-main);">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        
+                        <div class="profile-dropdown-menu" id="profileDropdown">
+                            <a href="accessibility.html" class="dropdown-item">Accessibility</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="profile.html" class="dropdown-item">Profile</a>
+                            <a href="grades.html" class="dropdown-item">Grades</a>
+                            <a href="calendar.html" class="dropdown-item">Calendar</a>
+                            <a href="private-files.html" class="dropdown-item">Private files</a>
+                            <a href="reports.html" class="dropdown-item">Reports</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="preferences.html" class="dropdown-item">Preferences</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="index.html" class="dropdown-item">Log out</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Horizontal Course Navigation -->
+            <div class="horizontal-nav-container">
+            <nav class="course-tabs">
+
+                <a href="dashboard.html">Dashboard</a>
+                <a href="courses.html">Courses</a>
+                <a href="assignments.html" class="active">Assignments</a>
+                <a href="students.html">Students</a>
+                <a href="profile.html">Profile</a>
+            </nav>
+
+            </div>
+
+
+            <div class="page-content">
+                <div class="section-header">
+                    <h2>Assignments</h2>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <div id="assignmentSearchContainer" style="display: none;">
+                            <input type="text" id="assignmentSearchInput" placeholder="Search assignments..."
+                                class="form-control" style="padding: 6px 12px; height: auto;">
+                        </div>
+                        <button class="btn btn-outline" id="toggleSearchBtn"
+                            style="border-color: #ddd; color: var(--text-light);">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 18px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-primary" id="submitNewAssignmentBtn">Submit New</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="assignmentsTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 40%;">Assignment Title</th>
+                                <th style="width: 25%;">Course</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Database Schema Design</strong>
+                                    <div class="text-muted" style="font-size: 0.85rem;">Create an ERD for the e-commerce
+                                        project</div>
+                                </td>
+                                <td>Backend Development</td>
+                                <td style="color: var(--danger-color); font-weight: 600;">Tomorrow</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-primary" onclick="uploadAssignment('Database Schema Design')"
+                                        style="padding: 6px 12px; font-size: 0.85rem;">Upload</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>User Persona Research</strong>
+                                    <div class="text-muted" style="font-size: 0.85rem;">Submit PDF report of 3 user
+                                        personas</div>
+                                </td>
+                                <td>UI/UX Fundamentals</td>
+                                <td>Dec 15, 2024</td>
+                                <td><span class="status-badge status-submitted">Submitted</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline" onclick="viewAssignment('User Persona Research')"
+                                        style="padding: 6px 12px; font-size: 0.85rem;">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>JavaScript DOM Manipulation</strong>
+                                    <div class="text-muted" style="font-size: 0.85rem;">Interactive To-Do List
+                                        Application</div>
+                                </td>
+                                <td>Advanced JavaScript</td>
+                                <td>Nov 28, 2024</td>
+                                <td><span class="status-badge status-graded">Graded (95/100)</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline"
+                                        onclick="viewAssignmentFeedback('JavaScript DOM Manipulation')"
+                                        style="padding: 6px 12px; font-size: 0.85rem;">Feedback</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>HTML5 Structural Tags</strong>
+                                    <div class="text-muted" style="font-size: 0.85rem;">Refactor basic layout using
+                                        semantic tags</div>
+                                </td>
+                                <td>Web Fundamentals</td>
+                                <td>Nov 10, 2024</td>
+                                <td><span class="status-badge status-graded">Graded (100/100)</span></td>
+                                <td style="text-align: right;">
+                                    <button class="btn btn-outline"
+                                        onclick="viewAssignmentFeedback('HTML5 Structural Tags')"
+                                        style="padding: 6px 12px; font-size: 0.85rem;">Feedback</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+<!-- Chat/Messaging Modal (Hidden by default) -->
+    <div id="chatModal" class="modal-overlay">
+        <div class="modal-content chat-modal-content"
+            style="max-width: 800px; padding: 0; overflow: hidden; display: flex; flex-direction: column; height: 80vh;">
+            <div class="modal-header"
+                style="background: var(--primary-color); color: white; padding: 15px 20px; border-radius: var(--border-radius) var(--border-radius) 0 0;">
+                <h3 style="margin: 0; color: white;">Messages</h3>
+                <button class="icon-btn close-modal-btn" id="closeChatBtn" style="color: white;">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="chat-container">
+                <!-- Sidebar contacts -->
+                <div class="chat-sidebar">
+                    <div class="chat-search">
+                        <input type="text" placeholder="Search users..." class="form-control"
+                            style="font-size: 0.85rem; padding: 8px 12px;">
+                    </div>
+                    <div class="chat-tabs">
+                        <button class="chat-tab active">All</button>
+                        <button class="chat-tab">Students</button>
+                        <button class="chat-tab">Lecturers</button>
+                    </div>
+                    <div class="chat-contacts">
+                        <div class="contact-item active">
+                            <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=random" alt="Sarah"
+                                class="contact-avatar">
+                            <div class="contact-info">
+                                <h4>Sarah Smith <span class="badge"
+                                        style="font-size: 0.6rem; padding: 2px 4px; background: #e74c3c">Lecturer</span>
+                                </h4>
+                                <p>Hi, regarding the upcoming assignment...</p>
+                            </div>
+                            <span class="contact-time">10:42 AM</span>
+                        </div>
+                        <div class="contact-item">
+                            <img src="https://ui-avatars.com/api/?name=Mike+Code&background=random" alt="Mike"
+                                class="contact-avatar">
+                            <div class="contact-info">
+                                <h4>Mike Code <span class="badge"
+                                        style="font-size: 0.6rem; padding: 2px 4px; background: var(--primary-color)">Student</span>
+                                </h4>
+                                <p>Thanks for the feedback on my...</p>
+                            </div>
+                            <span class="contact-time">Yesterday</span>
+                        </div>
+                        <div class="contact-item">
+                            <img src="https://ui-avatars.com/api/?name=Emma+Wilson&background=random" alt="Emma"
+                                class="contact-avatar">
+                            <div class="contact-info">
+                                <h4>Emma Wilson <span class="badge"
+                                        style="font-size: 0.6rem; padding: 2px 4px; background: var(--primary-color)">Student</span>
+                                </h4>
+                                <p>Can we schedule a meeting next week?</p>
+                            </div>
+                            <span class="contact-time">Tuesday</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Chat Area -->
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Smith&background=random" alt="Sarah"
+                            class="chat-header-avatar">
+                        <div>
+                            <h3 style="margin: 0; font-size: 1.1rem;">Sarah Smith</h3>
+                            <span style="font-size: 0.8rem; color: #10b981;">● Online</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-history" id="chatHistory">
+                        <div class="chat-bubble left">
+                            <div class="bubble-text">Hello! I just reviewed your latest submission for the UI Design
+                                course. It looks great, but could use a bit more contrast on the secondary buttons.
+                            </div>
+                            <span class="bubble-time">10:30 AM</span>
+                        </div>
+                        <div class="chat-bubble right">
+                            <div class="bubble-text">Hi Sarah, thanks for looking at it so quickly! I understand what
+                                you mean. Should I stick to the primary complementary color or pick a new shade?</div>
+                            
+                            <div class="bubble-actions" style="display: flex; gap: 8px; margin-top: 4px; justify-content: flex-end;">
+                                <button class="icon-btn edit-msg-btn" title="Edit Message" style="width:14px; height:14px; padding:0; color:white; opacity:0.8;">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                </button>
+                                <button class="icon-btn delete-msg-btn" title="Delete Message" style="width:14px; height:14px; padding:0; color:white; opacity:0.8;">
+                                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                </button>
+                            </div>
+                            <span class="bubble-time">10:35 AM</span>
+                        </div>
+                        <div class="chat-bubble left">
+                            <div class="bubble-text">A slightly darker shade of the neutral gray you're using would be
+                                perfect. No need to introduce a new color. Let me know when you update it!</div>
+                            <span class="bubble-time">10:42 AM</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <button class="icon-btn" style="color: var(--text-light);" title="Attach File">
+                            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                            </svg>
+                        </button>
+                        <input type="text" id="chatInputMessage" placeholder="Type a message..."
+                            class="form-control chat-input" style="flex: 1; border: none; background: #f8f9fa;">
+                        <button class="btn btn-primary" id="sendMessageBtn"
+                            style="padding: 8px 16px; border-radius: 20px;">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                style="transform: rotate(90deg);">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
